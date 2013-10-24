@@ -1,5 +1,5 @@
-Name: ...
-Evergreen Login: ...
+Name: Alex Sanders  
+Evergreen Login: Sanale04
 Computer Science Foundations
 Programming as a Way of Life
 Fall 2013
