@@ -1,4 +1,4 @@
-Enter file contents here# Name: Alex Sanders
+# Name: Alex Sanders
 # Evergreen Login: sanale04
 # Computer Science Foundations
 # Programming as a Way of Life
