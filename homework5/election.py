@@ -35,8 +35,10 @@ def state_edges(election_result_rows):
     The input list does has no duplicate states;
     that is, each state is represented at most once in the input list.
     """
-    #TODO: Implement this function
-    pass
+    state_edges = {}
+    for row in election_result_rows:
+        state_edges[str(row["State"])] = row_to_edge(row)
+    return state_edges
 
 
 ################################################################################
@@ -55,8 +57,14 @@ def most_recent_poll_row(poll_rows, pollster, state):
     Given a list of poll data rows, returns the most recent row with the
     specified pollster and state. If no such row exists, returns None.
     """
-    #TODO: Implement this function
-    pass
+    mostrecent = None
+    date2 = 'Jan 01 1800'
+    for row in poll_rows:
+        date = row['Date']
+        if row['State'] == state and row['Pollster'] == pollster and earlier_date(date,date2) == False:
+            mostrecent = row
+            date2 = row['Date']
+    return mostrecent
 
 
 ################################################################################
@@ -75,8 +83,19 @@ def pollster_predictions(poll_rows):
     """
     Given a list of poll data rows, returns pollster predictions.
     """
-    #TODO: Implement this function
-    pass
+   poll_predic = {}
+    edges = {}
+    pollsters = unique_column_values(poll_rows, 'Pollster')
+    states = unique_column_values(poll_rows, 'State')
+    for pollster in pollsters:
+        poll_predic[pollster] = {}
+        for state in states:
+            recent = [most_recent_poll_row(poll_rows,pollster,state)]
+        if recent != [None]:
+                poll_predic[pollster][state] = {}       
+                poll_predic[pollster][state] = state_edges(recent)[state]
+    return poll_predic
+
 
             
 ################################################################################
@@ -95,8 +114,11 @@ def pollster_errors(pollster_predictions, state_edges_actual):
     """
     Given pollster predictions and actual state edges, retuns pollster errors.
     """
-    #TODO: Implement this function
-    pass
+     errors = {}
+    for pollster in pollster_predictions:
+        errors[pollster] = average_error(pollster_predictions[pollster], state_edges_actual)
+    return errors
+
 
 
 ################################################################################
@@ -118,8 +140,15 @@ def pivot_nested_dict(nested_dict):
                 'x': {'a': 1, 'b': 3},
                 'z': {'b': 4} }
     """
-     #TODO: Implement this function
-    pass
+    pivot_dict = {}
+    for key in nested_dict.keys():
+        for akey in nested_dict[key].keys():
+            pivot_dict[akey] = {}
+    for key in nested_dict.keys():
+        for akey in nested_dict[key].keys():
+            pivot_dict[akey][key] = nested_dict[key][akey]
+    return pivot_dict
+
 
 
 ################################################################################
@@ -161,8 +190,13 @@ def weighted_average(items, weights):
     """
     assert len(items) > 0
     assert len(items) == len(weights)
-    #TODO: Implement this function
-    pass
+    weightedtotal = 0
+    totalweight = 0
+    for i in range(len(items)):
+        weightedtotal += items[i]*weights[i]
+        totalweight += weights[i]
+    return (1.0*weightedtotal)/totalweight
+
 
 
 def average_edge(pollster_edges, pollster_errors):
@@ -170,8 +204,14 @@ def average_edge(pollster_edges, pollster_errors):
     Given pollster edges and pollster errors, returns the average of these edges
     weighted by their respective pollster errors.
     """
-    #TODO: Implement this function
-    pass
+      pollster_weight = {}
+    weights = {}
+    for pollster in pollster_edges:
+        pollster_weight[pollster] = pollster_to_weight(pollster,pollster_errors)
+    for pollster in pollster_edges:
+        weights = weighted_average(pollster_edges.values(),pollster_weight.values())
+    #print weights
+    return weights
 
     
 ################################################################################

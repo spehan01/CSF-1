@@ -6,9 +6,11 @@ Homework 3: Election prediction
 
 Collaboration:
 
-...
+Worked on it on my own. 
 
 Reflection:
-
-...
+This was difficult and used a lot of googles help.
+I did what I could and had a lot of issues with Canopy
+and github on my computer. I had to un install everything
+and reinstall Thats the reason for commiting my hw late. 
 
