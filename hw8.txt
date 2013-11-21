@@ -1,0 +1,4 @@
+For project, your goal is to investigate drawing graphics and playing sounds
+with the pygame library.
+
+Write up what you find out, and commit some code using pygame, by Friday (12/6) 5pm.
