@@ -36,4 +36,4 @@ print "answer=",((a and b) or (not c) and not (d or e or f))
 
 ##Micah, Jason, Brandon 
 
-#taught me a shorter way to do problems 2 and 3, thanks!
+#taught me a shorter way to do problems 2 and 3, thanks! - spehan01
